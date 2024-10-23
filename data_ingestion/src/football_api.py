@@ -11,14 +11,16 @@ class FootballApi:
             "Accept-Encoding": "",
         }
         
+        self._global_params = {"limit": "10000"}
+        
     def get_teams(self) -> List[Team]:
-        response = requests.get(f"{self._base_url}/teams", headers=self._headers)
+        response = requests.get(f"{self._base_url}/teams", headers=self._headers, params=self._global_params)
         teams_data = response.json()["teams"]
         
         return [Team(**team_data) for team_data in teams_data]
 
     def get_competitions(self) -> List[Competition]:
-        response = requests.get(f"{self._base_url}/competitions", headers=self._headers)
+        response = requests.get(f"{self._base_url}/competitions", headers=self._headers, params=self._global_params)
         competitions_data = response.json()["competitions"]
         
         competitions = []

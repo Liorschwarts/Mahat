@@ -25,10 +25,10 @@ services:
       MYSQL_PASSWORD: footballpassword
       FOOTBALL_API_TOKEN: 09c05f78fa8a44f8a2343532c1945ee6
       MYSQL_DATABASE: football
-  # web:
-  #   build: web/.
-  #   depends_on:
-  #     - mysql
-  #     - python_ingestion
-  #   ports:
-  #     - "3000:3000"
+  web:
+    build: web/.
+    depends_on:
+      - mysql
+      - ingestion
+    ports:
+      - "8000:8000"

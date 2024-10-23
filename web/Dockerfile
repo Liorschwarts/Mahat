@@ -3,10 +3,14 @@ FROM node:16-alpine AS build
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm ci
+COPY frontend/package.json frontend/package-lock.json ./
 
-COPY . .
+RUN ls -ltr
+
+RUN npm install --force
+
+COPY frontend/. .
+
 RUN npm run build
 
 # Stage 2: Serve React app with FastAPI
@@ -14,14 +18,15 @@ FROM python:3.12.7
 
 WORKDIR /app
 
-# Install FastAPI and Uvicorn
-RUN pip install fastapi uvicorn
+# Install Python dependencies
+COPY backend/requirements.txt .
+RUN pip install -r requirements.txt
 
 # Copy the built React app from the previous stage
 COPY --from=build /app/build ./static
 
 # Copy the FastAPI server file
-COPY server.py .
+COPY backend/src/server.py .
 
 # Expose the port the app runs on
 EXPOSE 8000
