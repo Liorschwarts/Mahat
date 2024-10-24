@@ -37,6 +37,18 @@ class FootballApi:
             competitions.append(competition)
         
         return competitions
+    
+    def get_standings_by_cometition(self, competition_id: int) -> List[Team]:
+        response = requests.get(f"{self._base_url}/competitions/{competition_id}/standings", headers=self._headers, params=self._global_params)
+        
+    def get_matches_by_cometition(self, competition_id: int) -> List[Team]:
+        response = requests.get(f"{self._base_url}/competitions/{competition_id}/matches", headers=self._headers, params=self._global_params)
+        
+    def get_teams_by_cometition(self, competition_id: int) -> List[Team]:
+        response = requests.get(f"{self._base_url}/competitions/{competition_id}/teams", headers=self._headers, params=self._global_params)
+        
+    def get_scorers_by_cometition(self, competition_id: int) -> List[Team]:
+        response = requests.get(f"{self._base_url}/competitions/{competition_id}/scorers", headers=self._headers, params=self._global_params)
 
 # Example usage
 if __name__ == "__main__":

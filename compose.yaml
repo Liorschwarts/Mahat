@@ -14,8 +14,19 @@ services:
       timeout: 5s
       retries: 5
 
-  ingestion:
-    build: data_ingestion/.
+  redis:
+    image: redis:6.2-alpine
+    ports:
+      - "6379:6379"
+    command: redis-server --save 60 1 --loglevel warning
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  data_manager:
+    build: data_manager/.
     depends_on:
       mysql:
         condition: service_healthy
@@ -25,10 +36,29 @@ services:
       MYSQL_PASSWORD: footballpassword
       FOOTBALL_API_TOKEN: 09c05f78fa8a44f8a2343532c1945ee6
       MYSQL_DATABASE: football
-  web:
-    build: web/.
-    depends_on:
-      - mysql
-      - ingestion
-    ports:
-      - "8000:8000"
+  
+  backend:
+      build: backend/.
+      depends_on:
+        mysql:
+          condition: service_healthy
+      environment:
+        MYSQL_HOST: mysql
+        MYSQL_USER: football
+        MYSQL_PASSWORD: footballpassword
+        FOOTBALL_API_TOKEN: 09c05f78fa8a44f8a2343532c1945ee6
+        MYSQL_DATABASE: football
+  
+  frontend:
+      build: frontend/.
+      depends_on:
+        mysql:
+          condition: service_healthy
+      environment:
+        MYSQL_HOST: mysql
+        MYSQL_USER: football
+        MYSQL_PASSWORD: footballpassword
+        FOOTBALL_API_TOKEN: 09c05f78fa8a44f8a2343532c1945ee6
+        MYSQL_DATABASE: football
+        ports:
+          - "8000:8000"
