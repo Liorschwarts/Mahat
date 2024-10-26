@@ -1,6 +1,8 @@
 from fastapi import APIRouter
 from bl import CompetitionsBL
+import logging
 
+logger = logging.getLogger("uvicorn")
 competitions_route = APIRouter()
 
 @competitions_route.get("")

@@ -1,6 +1,8 @@
 from fastapi import APIRouter
 from bl import TeamsBL
+import logging
 
+logger = logging.getLogger("uvicorn")
 teams_route = APIRouter()
 
 @teams_route.get("/{id}")
