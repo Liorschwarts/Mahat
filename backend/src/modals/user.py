@@ -2,7 +2,6 @@ from typing import Optional
 from sqlmodel import Field, SQLModel
 from sqlalchemy import Column, Integer, String
 
-
 # User model
 class User(SQLModel, table=True):
     id: Optional[int] = Field(
@@ -21,20 +20,24 @@ class User(SQLModel, table=True):
     )
     full_name: str
     hashed_password: str
+    admin: bool = False
 
 # User creation model
 class UserCreate(SQLModel):
     username: str
     full_name: str
     password: str
+    admin: bool = False
 
 # User update model
 class UserUpdate(SQLModel):
     username: Optional[str] = None
     full_name: Optional[str] = None
+    admin: bool = False
 
 # User response model
 class UserResponse(SQLModel):
     id: Optional[int] = None
     username: str
     full_name: str
+    admin: bool = False
