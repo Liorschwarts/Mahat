@@ -2,7 +2,15 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
-from .routes import competitions_route, teams_route, users_route, auth_route
+from .routes import (
+    competitions_route, 
+    teams_route, 
+    users_route, 
+    token_route, 
+    articles_route, 
+    comments_route,
+    tags_route
+)
 import logging
 
 logger = logging.getLogger("uvicorn")
@@ -66,4 +74,7 @@ app.add_middleware(ExceptionHandlerMiddleware)
 app.include_router(competitions_route, prefix="/competitions", tags=["competitions"])
 app.include_router(teams_route, prefix="/teams", tags=["teams"])
 app.include_router(users_route, prefix="/users", tags=["users"])
-app.include_router(auth_route, prefix="/auth", tags=["auth"])
+app.include_router(token_route, prefix="/token", tags=["token"])
+app.include_router(articles_route, prefix="/articles", tags=["articles"])
+app.include_router(comments_route, prefix="/articles/{article_id}/comments", tags=["comments"])
+app.include_router(tags_route, prefix="/articles/{article_id}/tags", tags=["tags"])
