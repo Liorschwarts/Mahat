@@ -53,7 +53,6 @@ class UsersBL:
         with MysqlConnector() as mysql_conn:
             user = mysql_conn.delete_user_by_id(user_id)
             mysql_conn.commit()
-            mysql_conn.refresh(user)
         
         return user    
     

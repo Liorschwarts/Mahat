@@ -43,7 +43,7 @@ def update_user(current_user: Annotated[UserResponse, Depends(UsersBL().get_curr
 
 # Delete
 @users_route.delete("/me", response_model=UserResponse)
-def delete_user_by_id(current_user: Annotated[UserResponse, Depends(UsersBL().get_current_user)]):
+def delete_my_user(current_user: Annotated[UserResponse, Depends(UsersBL().get_current_user)]):
     user_id = current_user.id
     return UsersBL().delete_user_by_id(user_id)
 
