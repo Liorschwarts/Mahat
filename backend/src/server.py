@@ -1,22 +1,16 @@
-from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
-from fastapi.middleware.cors import CORSMiddleware
+from controller import app
+import logging
 
-app = FastAPI()
+logger = logging.getLogger("uvicorn")
 
-# Add CORS middleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins
-    allow_credentials=True,
-    allow_methods=["*"],  # Allows all methods
-    allow_headers=["*"],  # Allows all headers
-)
-
-# Mount the static files directory at the root
-app.mount("/", StaticFiles(directory="static", html=True), name="static")
-
-@app.get("/{full_path:path}")
-async def serve_react_app(full_path: str):
-    return FileResponse("static/index.html")
+def main():
+    init_mysql_db()
+    logger.info("Starting API...")
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+    
+    
+if __name__ == "__main__":
+    import uvicorn
+    from dal import init_mysql_db 
+    
+    main()
