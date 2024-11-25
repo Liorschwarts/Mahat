@@ -20,12 +20,6 @@ export const Navbar = () => {
     <AppBar position="static" style={{ backgroundColor: "#840000" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Button href={noam}>
-            <Avatar
-              sx={{ display: { xs: "none", md: "flex" }, mr: 3 }}
-              src={noam}
-            />
-          </Button>
           <Typography
             variant="h6"
             noWrap
