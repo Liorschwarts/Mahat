@@ -6,11 +6,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import noam from "../pics/noam.jpg";
 import { Link } from "react-router-dom";
-
-const img =
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkQ5lHZ2gidoAutn4qXnrgtuG_2OVX9CCd1X9EVUXN-UPwjE3PSw0-RHEp4kZuaJ9ZcnI&usqp=CAU";
 
 export const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -45,22 +41,11 @@ export const Navbar = () => {
               textDecoration: "none",
             }}
           >
-            Hey Noam
+            Homepage
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {true && (
-              <Button
-                sx={{ my: 2, color: "white", display: "block" }}
-                href={img}
-              >
-                אמור להיות כפתור חזור אבל באסה
-              </Button>
-            )}
-          </Box>
-
           {/* Login/Signup Button */}
-          <div style={{ marginLeft: "auto" }}>
+          <Box style={{ marginLeft: "auto" }}>
             {isAuthenticated ? (
               <Button color="inherit" onClick={handleAuthToggle}>
                 Logout
@@ -72,7 +57,7 @@ export const Navbar = () => {
                 </Button>
               </>
             )}
-          </div>
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>
