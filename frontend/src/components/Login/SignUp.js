@@ -100,7 +100,7 @@ const SignupForm = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" sx={{ padding: 3 }}>
       <Paper elevation={3} sx={{ padding: 3 }}>
         <Typography variant="h5" align="center" gutterBottom>
           Sign Up
@@ -210,9 +210,16 @@ const SignupForm = () => {
               type="submit"
               fullWidth
               variant="contained"
-              color="error"
               disabled={loading}
-              sx={{ padding: "10px 0", marginBottom: 2 }}
+              sx={{
+                padding: "10px 0",
+                marginBottom: 2,
+                backgroundColor: "#840000", // Custom color
+                color: "white", // Text color
+                "&:hover": {
+                  backgroundColor: "#C70039", // Hover color
+                },
+              }}
             >
               {loading ? <CircularProgress size={24} /> : "Sign Up"}
             </Button>

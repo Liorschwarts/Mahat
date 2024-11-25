@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,11 +7,19 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import noam from "../pics/noam.jpg";
+import { Link } from "react-router-dom";
 
 const img =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkQ5lHZ2gidoAutn4qXnrgtuG_2OVX9CCd1X9EVUXN-UPwjE3PSw0-RHEp4kZuaJ9ZcnI&usqp=CAU";
 
 export const Navbar = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Toggle authentication status (for demo purposes)
+  const handleAuthToggle = () => {
+    setIsAuthenticated(!isAuthenticated);
+  };
+
   return (
     <AppBar position="static" style={{ backgroundColor: "#840000" }}>
       <Container maxWidth="xl">
@@ -50,6 +58,21 @@ export const Navbar = () => {
               </Button>
             )}
           </Box>
+
+          {/* Login/Signup Button */}
+          <div style={{ marginLeft: "auto" }}>
+            {isAuthenticated ? (
+              <Button color="inherit" onClick={handleAuthToggle}>
+                Logout
+              </Button>
+            ) : (
+              <>
+                <Button color="inherit" component={Link} to="/login">
+                  Sign in
+                </Button>
+              </>
+            )}
+          </div>
         </Toolbar>
       </Container>
     </AppBar>
